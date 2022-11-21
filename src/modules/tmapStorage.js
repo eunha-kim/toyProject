@@ -56,6 +56,7 @@ export async function removeDestination() {
 }
 
 async function saveStorage(key, data) {
+    // storage 에 저장 object data 를 string 형식으로 변환
     try {
         const string = JSON.stringify(data)
         await AsyncStroage.setItem(key, string)
@@ -65,6 +66,7 @@ async function saveStorage(key, data) {
 }
 
 async function getData(key) {
+    // storage 에서 데이터 가져오기 string 데이터를 object 형식으로 변환
     try {
         await AsyncStroage.getItem(key)
         return JSON.parse(data)
@@ -74,6 +76,7 @@ async function getData(key) {
 }
 
 async function removeData(key) {
+    // 데이터 삭제
     try {
         await AsyncStroage.removeItem(key)
     } catch (e) {
@@ -82,6 +85,7 @@ async function removeData(key) {
 }
 
 async function contains(key) {
+    // 지정된 키가 storage 에 있는지 검사
     try {
         const keys = AsyncStroage.getAllKeys()  // async storage 에 저장되어있는 모든 키를 가져옴
         return keys.includes(key)   // 저장된 키 중 지정된 키가 포함되어 있으면 true 리턴
