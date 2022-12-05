@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button, FlatList, TextInput, View, ActivityIndicator, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { Button, FlatList, TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { requestPoi } from '../modules/tMapPoi'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { storeDestination, storeDeparture } from '../modules/tmapStorage'
 
 const PoiView = ({ navigation, route }) => {
@@ -52,7 +52,7 @@ const PoiView = ({ navigation, route }) => {
         // 리스트 아이템 뷰
         return (
             // 터치가능한 뷰 터치 시 onItemSel 메소드 실행
-            <TouchableWithoutFeedback style={styles.cellDivider} onPress={() => onItemSel(item.item)}>
+            <TouchableOpacity style={styles.cellDivider} onPress={() => onItemSel(item.item)}>
                 <View style={styles.cell}>
                     <Text style={styles.cellText}>이름: {item.item.name}</Text>
                     {item.item.newAddressList ? (
@@ -68,7 +68,7 @@ const PoiView = ({ navigation, route }) => {
                         좌표 Lat {item.item.noorLat} / Lon {item.item.noorLon}
                     </Text>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         )
     }
 

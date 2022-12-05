@@ -26,3 +26,55 @@ export async function requestPoi(searchText) {
 
     return response.data.searchPoiInfo.pois.poi
 }
+
+/* 
+    참조
+    https://tmapapi.sktelecom.com/main.html#webservice/docs/tmapRouteDoc
+
+    searchOption
+    0 -> 교통최적+추천(기본값)
+    1 -> 교통최적+무료우선
+    2 -> 교통최적+최소시간
+    3 -> 교통최적+초보
+    4 -> 교통최적+고속도로우선
+    10 -> 최단거리+유/무료
+    12 -> 이륜차도로우선
+    19 -> 교통최적+어린이보호구역 회피
+
+    totalValue
+    1> 전체 경로 안내 및 전체 응답데이터
+    2> 총길이, 소요시간, 요금정보, 택시요금 의 정보만 받을 경우
+
+    trafficInfo Y -> 교통정보 포함 N -> 미포함
+    mainRoadInfo Y -> 주요 도로정보 포함 N -> 미포함
+*/
+/**
+ * 경로 탐색
+ * @param startLat 출발 지점 latitude (x)
+ * @param startLong 출발 지점 longtitude (y)
+ * @param endLat 도착 지점 latitude (x)
+ * @param endLong 도착 지점 longtitude (y)
+ * */
+export async function requestRoute(startLat, startLong, endLat, endLong) {
+    const url = BaseUrl + `routes?version=1&appkey=${AppKey}`
+
+    // http post 요청
+    const response = await axios
+        .post(url, {
+            startX: startLong,
+            startY: startLat,
+            endX: endLong,
+            endY: endLat,
+            trafficInfo: 'Y',
+            totalValue: 1,
+            searchOption: 0,
+            mainRoadInfo: 'Y',
+        })
+        .catch((err) => {
+            console.log(err.response)
+        })
+
+    if (response) {
+        return response.data
+    }
+}

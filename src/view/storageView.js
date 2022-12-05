@@ -17,12 +17,12 @@ const StorageView = ({navigation}) => {
     }, []);
 
     async function getData() {
-        if (containsDeparture()) {
+        if (await containsDeparture()) {
             // departure 키가 있을때
             const dep = await getDeparture(); // 저장된 departure 정보 가져옴
             setdeparture(dep);  // departure state 에 저장
         }
-        if (containsDestination()) {
+        if (await containsDestination()) {
             // destination 키가 있을때
             const des = await getDestination(); // 저장된 destination 정보 가져옴
             setdestination(des); // destination state 에 저장
